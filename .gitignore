@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.ODM_PDF_FILES/
+.ODM_WORD_FILES/
+.migrations/
