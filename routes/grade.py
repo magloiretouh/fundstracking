@@ -8,7 +8,7 @@ grade_bp = Blueprint("grade", __name__, url_prefix="/grades")
 @grade_bp.route('/', methods=['GET'])
 def get_all_zones():
     grades = Grade.query.all()
-    return jsonify([grade.serialize() for grade in grades])
+    return jsonify([grade.serialize() for grade in grades]), 200
 
 @grade_bp.route('/<int:id>', methods=['GET'])
 def get_zone(id):

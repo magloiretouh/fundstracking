@@ -8,7 +8,7 @@ zone_bp = Blueprint("zone", __name__, url_prefix="/zones")
 @zone_bp.route('/', methods=['GET'])
 def get_all_zones():
     zones = Zone.query.all()
-    return jsonify([zone.serialize() for zone in zones])
+    return jsonify([zone.serialize() for zone in zones]), 200
 
 @zone_bp.route('/<int:id>', methods=['GET'])
 def get_zone(id):
