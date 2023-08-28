@@ -47,8 +47,8 @@ def create_fund_request():
         db.session.add(EmployeeRequest(
             fund_request_id=new_fund_request.id,
             employee_id=employee_id,
-            montant_perdiem = perdiem * ((datetime.strptime(data.get('date_fin'), '%d-%m-%Y') - datetime.strptime(data.get('date_debut'), '%d-%m-%Y')).days+0.5),
-            montant_logement = logement * ((datetime.strptime(data.get('date_fin'), '%d-%m-%Y') - datetime.strptime(data.get('date_debut'), '%d-%m-%Y')).days),
+            montant_perdiem = perdiem * ((datetime.strptime(data.get('date_fin'), '%Y-%m-%d') - datetime.strptime(data.get('date_debut'), '%Y-%m-%d')).days+0.5),
+            montant_logement = logement * ((datetime.strptime(data.get('date_fin'), '%Y-%m-%d') - datetime.strptime(data.get('date_debut'), '%Y-%m-%d')).days),
             montant_peage = peage
         ))
 
