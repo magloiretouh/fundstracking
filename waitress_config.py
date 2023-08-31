@@ -1,0 +1,1 @@
+waitress-serve --port 5050 app:app
