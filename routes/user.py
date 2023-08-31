@@ -1,4 +1,4 @@
-from config import app, db, login_manager
+from config import app, db, login_manager, default_password
 from models import User
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -30,7 +30,9 @@ def login():
 
     user = User.query.filter_by(username=data.get('username')).first()
 
-    if user and user.check_password(data.get('password')):
+    if (user and user.check_password(data.get('password')) and data.get('password')==default_password):
+        return jsonify({"message": "Redirect To Change Password !"}), 303
+    elif (user and user.check_password(data.get('password'))):
         login_user(user)
         return jsonify({"message": "Login successfully"}), 200
     else:
@@ -51,7 +53,7 @@ def reset():
     user = User.query.filter_by(username=data.get('username')).first()
 
     if user:
-        user.set_password("NSCT@123")
+        user.set_password(default_password)
         db.session.commit()
         return jsonify({"message": "User Account reset successfully"}), 200
     else:

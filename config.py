@@ -19,6 +19,7 @@ login_manager = LoginManager(app)
 upload_folder = './ODM_PDF_FILES'
 generate_fr_folder = './ODM_WORD_FILES'
 templates_folder = './Templates'
+default_password = 'nsct@123'
 fr_template_file_path = templates_folder+'/odm_file.docx'
 FIRST_LEVEL = 1
 LAST_LEVEL = 6
