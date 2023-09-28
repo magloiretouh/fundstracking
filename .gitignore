@@ -4,3 +4,5 @@ __pycache__/
 .ODM_PDF_FILES/
 .ODM_WORD_FILES/
 .migrations/
+.flask_session/
+*.png

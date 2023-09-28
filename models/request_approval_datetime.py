@@ -26,5 +26,6 @@ class RequestApprovalDatetime(db.Model):
             'fund_request': self.fund_request.serialize(),
             'level': self.user_level.serialize(),
             'user': self.user.serialize(),
-            'approved_or_reject': self.approved_or_reject
+            'approved_or_reject': self.approved_or_reject,
+            'created_at': self.created_at
         }

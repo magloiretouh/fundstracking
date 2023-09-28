@@ -1,6 +1,8 @@
 from config import db, login_manager
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, LargeBinary
 from flask_login import UserMixin
+from flask import session
+from flask import jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Define the database models
@@ -11,6 +13,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     firstname_lastname = db.Column(db.String(150), nullable=False)
+    signature = db.Column(db.LargeBinary, nullable=True)
+    signature_filename = db.Column(db.String(100), nullable=True)
+    initial = db.Column(db.LargeBinary, nullable=True)
+    initial_filename = db.Column(db.String(100), nullable=True)
     user_level_id = db.Column(db.Integer, db.ForeignKey('user_level.id'), nullable=False)
     request_approval_dts = db.relationship('RequestApprovalDatetime', backref='user', lazy=True)
 
@@ -20,9 +26,9 @@ class User(db.Model, UserMixin):
         self.user_level_id = user_level_id
 
     @login_manager.user_loader
-    def get_user(id):
+    def user_loader(id):
         return User.query.get(int(id))
-
+    
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -33,7 +39,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'password': self.password,
             'firstname_lastname': self.firstname_lastname,
             'user_level_id': self.user_level.serialize(),
         }
