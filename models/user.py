@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     firstname_lastname = db.Column(db.String(150), nullable=False)
+    is_active = db.Column(db.Integer, nullable=True, default=1)
     signature = db.Column(db.LargeBinary, nullable=True)
     signature_filename = db.Column(db.String(100), nullable=True)
     initial = db.Column(db.LargeBinary, nullable=True)

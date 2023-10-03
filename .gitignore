@@ -1,8 +1,9 @@
 .venv/
 __pycache__/
 *.pyc
-.temp/
-.migrations/
-.flask_session/
-.migrations/
+temp/
+migrations/
+flask_session/
+DO_NOT_UPLOAD/
+migrations/
 *.png

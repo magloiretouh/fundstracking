@@ -34,10 +34,13 @@ def login():
     if (user and user.check_password(data.get('password')) and data.get('password')==default_password):
         return jsonify({"message": "Redirect To Change Password !"}), 303
     elif (user and user.check_password(data.get('password'))):
-        login_user(user)
-        return jsonify({"message": "Login successfully"}), 200
+        if user.is_active == True:
+            login_user(user)
+            return jsonify({"message": "Login successfully"}), 200
+        else:
+            return jsonify({"message": "User is blocked. Please contact the admin !"}), 404
     else:
-        return jsonify({"error": "Invalid username or password."}), 404
+        return jsonify({"error": "Nom d'utilisateur ou mot de passe erroné !"}), 404
 
 
 @user_bp.route('/logout')
@@ -69,10 +72,13 @@ def change_password():
     user = User.query.filter_by(username=data.get('username')).first()
 
     if user and user.check_password(data.get('old_password')):
-        user.set_password(data.get('new_password'))
-        db.session.commit()
-        login_user(user)
-        return jsonify({"message": "Password changed successfully."}), 200
+        if user.is_active == True:
+            user.set_password(data.get('new_password'))
+            db.session.commit()
+            login_user(user)
+            return jsonify({"message": "Password changed successfully."}), 200
+        else:
+            return jsonify({"message": "User is blocked. Please contact the admin !"}), 200
     else:
         return jsonify({"error": "Invalid username or old password."}), 404
 

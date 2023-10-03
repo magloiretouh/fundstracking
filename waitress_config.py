@@ -1,1 +1,1 @@
-waitress-serve --port 5050 app:app
+waitress-serve --host 127.0.0.1 --port 5050 app:app
